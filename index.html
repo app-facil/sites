@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Sites no GitHub Pages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7e22ce;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #22c55e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .site-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .site-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .site-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            text-align: center;
+        }
+        
+        .site-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .site-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .site-link {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .site-link:hover {
+            background: linear-gradient(to right, var(--primary-dark), var(--secondary));
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .instructions {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .instructions h2 {
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-align: center;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .step {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .sites-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo"><i class="fas fa-folder-tree"></i>Meus Sites</h1>
+            <p class="subtitle">Uma coleção dos meus projetos hospedados no GitHub Pages</p>
+        </header>
+        
+        <div class="sites-grid">
+            <div class="site-card">
+                <div class="site-icon">
+                    <i class="fas fa-tv"></i>
+                </div>
+                <h2 class="site-title">Sistema de IPTV</h2>
+                <p class="site-description">Sistema de vendas de IPTV com feedback e integração com PIX para pagamentos.</p>
+                <a href="sites/iptv" class="site-link">Acessar Site</a>
+            </div>
+            
+            <div class="site-card">
+                <div class="site-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h2 class="site-title">Loja Virtual</h2>
+                <p class="site-description">E-commerce completo com carrinho de compras e integração com gateways de pagamento.</p>
+                <a href="sites/ecommerce" class="site-link">Acessar Site</a>
+            </div>
+            
+            <div class="site-card">
+                <div class="site-icon">
+                    <i class="fas fa-blog"></i>
+                </div>
+                <h2 class="site-title">Blog Pessoal</h2>
+                <p class="site-description">Meu blog pessoal com artigos sobre tecnologia, desenvolvimento web e dicas de programação.</p>
+                <a href="sites/blog" class="site-link">Acessar Site</a>
+            </div>
+            
+            <div class="site-card">
+                <div class="site-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h2 class="site-title">Portfólio de Jogos</h2>
+                <p class="site-description">Coleção de jogos desenvolvidos em JavaScript usando HTML5 Canvas.</p>
+                <a href="sites/games" class="site-link">Acessar Site</a>
+            </div>
+            
+            <div class="site-card">
+                <div class="site-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h2 class="site-title">Player de Música</h2>
+                <p class="site-description">Player de música com interface moderna e funcionalidades avançadas de reprodução.</p>
+                <a href="sites/music-player" class="site-link">Acessar Site</a>
+            </div>
+            
+            <div class="site-card">
+                <div class="site-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h2 class="site-title">App de Tarefas</h2>
+                <p class="site-description">Aplicativo de gerenciamento de tarefas com sincronização em nuvem e modo offline.</p>
+                <a href="sites/todo-app" class="site-link">Acessar Site</a>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>Como Adicionar Seus Próprios Sites</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h3>Crie a Estrutura de Pastas</h3>
+                    <p>No seu repositório GitHub Pages, crie uma pasta <code>sites/</code> e dentro dela, pastas para cada site.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h3>Adicione os Arquivos</h3>
+                    <p>Coloque os arquivos de cada site em sua respectiva pasta. Cada site deve ter um <code>index.html</code> na raiz de sua pasta.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h3>Atualize Esta Página</h3>
+                    <p>Edite este arquivo <code>index.html</code> para adicionar um card com link para seu novo site.</p>
+                </div>
+                
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <h3>Acesse Seus Sites</h3>
+                    <p>Seus sites estarão disponíveis em <code>https://seuusuario.github.io/sites/nomedosite</code></p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Meus Sites no GitHub Pages. Todos os direitos reservados.</p>
+            <p>Hospedado com <i class="fas fa-heart" style="color: #e74c3c;"></i> no GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script>
+        // Efeito de digitação no subtítulo
+        document.addEventListener('DOMContentLoaded', function() {
+            const subtitle = document.querySelector('.subtitle');
+            const originalText = subtitle.textContent;
+            subtitle.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    subtitle.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 30);
+                }
+            };
+            
+            typeWriter();
+            
+            // Efeito de aparecimento nos cards
+            const cards = document.querySelectorAll('.site-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
+            });
+        });
+    </script>
+</body>
+</html>
