@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max TV - Sistema de Vendas IPTV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #22c55e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.2);
+            filter: blur(40px);
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(245, 158, 11, 0.2);
+            filter: blur(40px);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--gray);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-accent {
+            background: linear-gradient(to right, var(--accent), #e67e22);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* Plans Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .plans {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 4rem 0;
+        }
+        
+        .plan {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .plan-popular {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .plan-popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .plan-popular::before {
+            content: 'Mais Popular';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 2.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+        
+        .plan h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .features li i {
+            color: var(--secondary);
+            margin-right: 0.5rem;
+        }
+        
+        /* Payment Section */
+        .payment {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .payment h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+        
+        .pix-container {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid var(--secondary);
+        }
+        
+        .pix-code {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 1.5rem 0;
+            text-align: center;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            display: inline-block;
+            padding-right: 3rem;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .payment-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray);
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.8);
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+        
+        /* Feedback Section */
+        .feedback {
+            margin: 5rem 0;
+        }
+        
+        .testimonials {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .testimonial {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial .rating {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial p {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--light);
+        }
+        
+        .client {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .client-info h4 {
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+        
+        .client-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0;
+            font-style: normal;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 3rem 0 2rem;
+            margin-top: 5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-logo .logo {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .footer-links {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .payment-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .plan-popular {
+                transform: scale(1);
+            }
+            
+            .plan-popular:hover {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-tv"></i>
+                <span>Max TV</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#plans">Planos</a></li>
+                    <li><a href="#payment">Pagamento</a></li>
+                    <li><a href="#feedback">Avaliações</a></li>
+                    <li><a href="#support">Suporte</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Experiência Premium em Streaming</h1>
+            <p>Mais de 15.000 canais, filmes, séries e eventos esportivos com a melhor qualidade de streaming</p>
+            <a href="#plans" class="btn">Ver Planos <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section id="plans" class="container">
+        <h2 class="section-title">Nossos Planos</h2>
+        <div class="plans">
+            <div class="plan animate">
+                <h3>Plano Mensal</h3>
+                <div class="price">R$ 25<span>/mês</span></div>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> 15.000 Canais</li>
+                    <li><i class="fas fa-check"></i> 80.000 Conteúdos</li>
+                    <li><i class="fas fa-check"></i> Qualidade Full HD/4K</li>
+                    <li><i class="fas fa-check"></i> Suporte 24/7</li>
+                    <li><i class="fas fa-check"></i> App próprio</li>
+                </ul>
+                <a href="#payment" class="btn">Assinar Agora</a>
+            </div>
+            
+            <div class="plan plan-popular animate">
+                <h3>Plano Trimestral</h3>
+                <div class="price">R$ 60<span>/trimestre</span></div>
+                <p style="color: var(--success); font-weight: 600;">Economize R$ 15,00</p>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> 15.000 Canais</li>
+                    <li><i class="fas fa-check"></i> 80.000 Conteúdos</li>
+                    <li><i class="fas fa-check"></i> Qualidade Full HD/4K</li>
+                    <li><i class="fas fa-check"></i> Suporte 24/7</li>
+                    <li><i class="fas fa-check"></i> App próprio</li>
+                </ul>
+                <a href="#payment" class="btn btn-accent">Assinar Agora</a>
+            </div>
+            
+            <div class="plan animate">
+                <h3>Plano Anual</h3>
+                <div class="price">R$ 200<span>/ano</span></div>
+                <p style="color: var(--success); font-weight: 600;">Economize R$ 100,00</p>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> 15.000 Canais</li>
+                    <li><i class="fas fa-check"></i> 80.000 Conteúdos</li>
+                    <li><i class="fas fa-check"></i> Qualidade Full HD/4K</li>
+                    <li><i class="fas fa-check"></i> Suporte Prioritário</li>
+                    <li><i class="fas fa-check"></i> App próprio</li>
+                </ul>
+                <a href="#payment" class="btn">Assinar Agora</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="payment" class="container">
+        <div class="payment">
+            <h2 class="section-title">Pagamento via PIX</h2>
+            <div class="pix-container">
+                <p>Faça o pagamento via PIX utilizando a chave abaixo:</p>
+                <div class="pix-code">
+                    IPTVPR123456789@PIX.COM.BR
+                    <button class="copy-btn" onclick="copyPixKey()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <p>Após o pagamento, preencha o formulário com seus dados e envie o comprovante</p>
+            </div>
+            
+            <form id="paymentForm" class="payment-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" required placeholder="Seu nome completo">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required placeholder="seu@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="plan">Plano Escolhido</label>
+                    <select id="plan" required>
+                        <option value="">Selecione um plano</option>
+                        <option value="monthly">Mensal - R$ 25,00</option>
+                        <option value="quarterly">Trimestral - R$ 60,00</option>
+                        <option value="yearly">Anual - R$ 200,00</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">WhatsApp</label>
+                    <input type="tel" id="phone" required placeholder="(11) 99999-9999">
+                </div>
+                
+                <div class="form-group form-group-full">
+                    <label for="proof">Comprovante PIX</label>
+                    <input type="file" id="proof" accept="image/*,.pdf" required>
+                </div>
+                
+                <div class="form-group form-group-full">
+                    <button type="submit" class="btn btn-accent">Enviar Dados e Comprovante</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="feedback" class="feedback container">
+        <h2 class="section-title">Avaliação dos Clientes</h2>
+        <div class="testimonials">
+            <div class="testimonial animate">
+                <div class="rating">★★★★★</div>
+                <p>"Melhor IPTV que já usei! Atendimento excelente e qualidade de imagem impressionante. Recomendo muito!"</p>
+                <div class="client">
+                    <div class="client-avatar">CS</div>
+                    <div class="client-info">
+                        <h4>Carlos Silva</h4>
+                        <p>Cliente há 6 meses</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial animate">
+                <div class="rating">★★★★★</div>
+                <p>"Estou há 6 meses assinando e nunca teve queda. Conteúdo diversificado e sempre atualizado. Vale cada centavo!"</p>
+                <div class="client">
+                    <div class="client-avatar">MO</div>
+                    <div class="client-info">
+                        <h4>Maria Oliveira</h4>
+                        <p>Cliente há 1 ano</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial animate">
+                <div class="rating">★★★★☆</div>
+                <p>"Ótimo custo-benefício. Às vezes tem alguma instabilidade mas o suporte resolve rápido. Recomendo!"</p>
+                <div class="client">
+                    <div class="client-avatar">JS</div>
+                    <div class="client-info">
+                        <h4>João Santos</h4>
+                        <p>Cliente há 3 meses</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="support">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <i class="fas fa-tv"></i>
+                        <span>Max TV</span>
+                    </div>
+                    <p>A melhor experiência em streaming com qualidade e conteúdo ilimitado para você e sua família.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#plans">Planos</a></li>
+                        <li><a href="#payment">Pagamento</a></li>
+                        <li><a href="#feedback">Avaliações</a></li>
+                        <li><a href="#support">Suporte</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="mailto:suporte@maxtv.com">suporte@maxtv.com</a></li>
+                        <li><a href="https://wa.me/5511999999999">WhatsApp: (11) 99999-9999</a></li>
+                        <li><a href="#">Tutorial de Instalação</a></li>
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Max TV - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Função para copiar a chave PIX
+        function copyPixKey() {
+            const pixKey = "IPTVPR123456789@PIX.COM.BR";
+            navigator.clipboard.writeText(pixKey).then(() => {
+                alert("Chave PIX copiada para a área de transferência!");
+            }).catch(err => {
+                console.error('Erro ao copiar texto: ', err);
+            });
+        }
+        
+        // Animação de scroll
+        function checkScroll() {
+            const elements = document.querySelectorAll('.animate');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight * 0.85;
+                if (elementPosition < screenPosition) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Inicializar animações
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+        
+        // Form submission
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Dados enviados com sucesso! Entraremos em contato em até 24h para ativar seu acesso.');
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
