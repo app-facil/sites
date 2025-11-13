@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Construmax - Materiais de Construção</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --primary: #2563eb;
+  --secondary: #f59e0b;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --gray: #94a3b8;
+}
+* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body {background:#f1f5f9;color:#111;}
+header {
+  background:var(--primary);
+  color:white;
+  padding:1rem 0;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+.container {max-width:1200px;margin:auto;padding:0 1.5rem;}
+.header-content {display:flex;justify-content:space-between;align-items:center;}
+.logo {font-size:1.8rem;font-weight:700;display:flex;align-items:center;gap:0.5rem;}
+.logo i {color:var(--secondary);}
+nav ul {display:flex;list-style:none;gap:1.5rem;}
+nav a {color:white;text-decoration:none;font-weight:500;}
+nav a:hover {text-decoration:underline;}
+.hero {
+  text-align:center;
+  padding:4rem 1rem;
+  background:linear-gradient(to right,var(--primary),var(--secondary));
+  color:white;
+}
+.hero h1 {font-size:2.5rem;margin-bottom:1rem;}
+.hero p {font-size:1.2rem;}
+.products {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.5rem;
+  padding:3rem 0;
+}
+.product {
+  background:white;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  padding:1rem;
+  text-align:center;
+  transition:transform .2s;
+}
+.product:hover {transform:scale(1.03);}
+.product img {
+  width:100%; height:180px; object-fit:cover; border-radius:8px;
+}
+.product h3 {margin:0.8rem 0 0.4rem;}
+.price {color:var(--primary);font-weight:700;font-size:1.1rem;}
+.qty-box {display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.5rem;}
+.qty-box input {
+  width:50px; text-align:center; padding:0.3rem; border:1px solid #ccc; border-radius:5px;
+}
+.btn {
+  display:inline-block;
+  background:var(--primary);
+  color:white;
+  padding:0.8rem 1.5rem;
+  border-radius:30px;
+  font-weight:600;
+  text-decoration:none;
+  transition:background .3s;
+  margin-top:2rem;
+}
+.btn:hover {background:#1d4ed8;}
+footer {
+  background:var(--dark);
+  color:var(--gray);
+  padding:2rem 1rem;
+  text-align:center;
+  margin-top:3rem;
+}
+footer a {color:var(--secondary);text-decoration:none;}
+footer a:hover {text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <div class="logo"><i class="fa-solid fa-house"></i> Construmax</div>
+    <nav>
+      <ul>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Construmax Materiais de Construção</h1>
+  <p>Qualidade, bom preço e entrega rápida para sua obra!</p>
+</section>
+
+<section id="produtos" class="container">
+  <h2 style="text-align:center;margin-top:2rem;">Nossos Produtos</h2>
+  <div class="products" id="productList">
+    <!-- Exemplo de produto -->
+    <div class="product" data-name="Cimento Votoran 50kg" data-price="38">
+      <img src="https://cdn.pixabay.com/photo/2016/03/31/21/15/cement-1298542_1280.jpg" alt="Cimento">
+      <h3>Cimento Votoran 50kg</h3>
+      <div class="price">R$ 38,00</div>
+      <div class="qty-box">
+        <label>Qtd:</label>
+        <input type="number" min="1" value="1">
+      </div>
+    </div>
+
+    <div class="product" data-name="Tijolo Cerâmico 8 furos" data-price="1.20">
+      <img src="https://cdn.pixabay.com/photo/2017/05/06/23/57/bricks-2293265_1280.jpg" alt="Tijolo">
+      <h3>Tijolo Cerâmico 8 furos</h3>
+      <div class="price">R$ 1,20</div>
+      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
+    </div>
+
+    <div class="product" data-name="Areia Média Ensacada" data-price="12">
+      <img src="https://cdn.pixabay.com/photo/2016/03/09/09/22/sand-1246034_1280.jpg" alt="Areia">
+      <h3>Areia Média Ensacada</h3>
+      <div class="price">R$ 12,00</div>
+      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
+    </div>
+
+    <div class="product" data-name="Brita nº1 Ensacada" data-price="15">
+      <img src="https://cdn.pixabay.com/photo/2016/07/23/15/15/gravel-1539444_1280.jpg" alt="Brita">
+      <h3>Brita nº1 Ensacada</h3>
+      <div class="price">R$ 15,00</div>
+      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
+    </div>
+
+    <div class="product" data-name="Tinta Coral 18L - Branca" data-price="189">
+      <img src="https://cdn.pixabay.com/photo/2016/11/29/06/22/paint-1867896_1280.jpg" alt="Tinta">
+      <h3>Tinta Coral 18L - Branca</h3>
+      <div class="price">R$ 189,00</div>
+      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
+    </div>
+
+    <div class="product" data-name="Caixa D'água 500L Fortlev" data-price="285">
+      <img src="https://cdn.pixabay.com/photo/2016/07/16/16/14/water-tank-1521457_1280.jpg" alt="Caixa d'água">
+      <h3>Caixa D'água 500L Fortlev</h3>
+      <div class="price">R$ 285,00</div>
+      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <a href="#" class="btn" id="enviarPedido"><i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp</a>
+  </div>
+</section>
+
+<footer id="contato">
+  <p>&copy; 2025 Construmax Materiais de Construção<br>
+  Atendimento pelo WhatsApp: <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">(XX) XXXXX-XXXX</a></p>
+</footer>
+
+<script>
+// Número do WhatsApp (com DDI 55)
+const whatsappNumber = "55XXXXXXXXXXX"; // 👈 altere aqui
+
+document.getElementById("enviarPedido").addEventListener("click", function(e){
+  e.preventDefault();
+
+  const produtos = document.querySelectorAll(".product");
+  let mensagem = "*Pedido de Materiais de Construção*%0A%0A";
+  let total = 0;
+  let algumSelecionado = false;
+
+  produtos.forEach(prod=>{
+    const nome = prod.dataset.name;
+    const preco = parseFloat(prod.dataset.price);
+    const qtd = parseInt(prod.querySelector("input").value);
+    if(qtd > 0){
+      algumSelecionado = true;
+      const subtotal = preco * qtd;
+      total += subtotal;
+      mensagem += `• ${nome} - Qtd: ${qtd} - R$ ${subtotal.toFixed(2).replace('.',',')}%0A`;
+    }
+  });
+
+  if(!algumSelecionado){
+    alert("Selecione ao menos um produto antes de enviar o pedido.");
+    return;
+  }
+
+  mensagem += `%0ATotal: *R$ ${total.toFixed(2).replace('.',',')}*%0A%0A`;
+  mensagem += "Olá! Gostaria de confirmar esse pedido.";
+
+  const link = `https://wa.me/${whatsappNumber}?text=${mensagem}`;
+  window.open(link, "_blank");
+});
+</script>
+
+</body>
+</html>
