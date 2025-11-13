@@ -1,207 +1,372 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Construmax - Materiais de Construção</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ConstruFácil - Materiais para Construção</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #dc2626;    /* Vermelho construção */
+      --secondary: #1e40af;  /* Azul forte */
+      --accent: #f97316;     /* Laranja */
+      --dark: #1f2937;
+      --light: #f8fafc;
+      --gray: #64748b;
+    }
 
-<style>
-:root {
-  --primary: #2563eb;
-  --secondary: #f59e0b;
-  --dark: #0f172a;
-  --light: #f8fafc;
-  --gray: #94a3b8;
-}
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body {background:#f1f5f9;color:#111;}
-header {
-  background:var(--primary);
-  color:white;
-  padding:1rem 0;
-  position:sticky;
-  top:0;
-  z-index:100;
-  box-shadow:0 3px 10px rgba(0,0,0,0.2);
-}
-.container {max-width:1200px;margin:auto;padding:0 1.5rem;}
-.header-content {display:flex;justify-content:space-between;align-items:center;}
-.logo {font-size:1.8rem;font-weight:700;display:flex;align-items:center;gap:0.5rem;}
-.logo i {color:var(--secondary);}
-nav ul {display:flex;list-style:none;gap:1.5rem;}
-nav a {color:white;text-decoration:none;font-weight:500;}
-nav a:hover {text-decoration:underline;}
-.hero {
-  text-align:center;
-  padding:4rem 1rem;
-  background:linear-gradient(to right,var(--primary),var(--secondary));
-  color:white;
-}
-.hero h1 {font-size:2.5rem;margin-bottom:1rem;}
-.hero p {font-size:1.2rem;}
-.products {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:1.5rem;
-  padding:3rem 0;
-}
-.product {
-  background:white;
-  border-radius:10px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
-  padding:1rem;
-  text-align:center;
-  transition:transform .2s;
-}
-.product:hover {transform:scale(1.03);}
-.product img {
-  width:100%; height:180px; object-fit:cover; border-radius:8px;
-}
-.product h3 {margin:0.8rem 0 0.4rem;}
-.price {color:var(--primary);font-weight:700;font-size:1.1rem;}
-.qty-box {display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.5rem;}
-.qty-box input {
-  width:50px; text-align:center; padding:0.3rem; border:1px solid #ccc; border-radius:5px;
-}
-.btn {
-  display:inline-block;
-  background:var(--primary);
-  color:white;
-  padding:0.8rem 1.5rem;
-  border-radius:30px;
-  font-weight:600;
-  text-decoration:none;
-  transition:background .3s;
-  margin-top:2rem;
-}
-.btn:hover {background:#1d4ed8;}
-footer {
-  background:var(--dark);
-  color:var(--gray);
-  padding:2rem 1rem;
-  text-align:center;
-  margin-top:3rem;
-}
-footer a {color:var(--secondary);text-decoration:none;}
-footer a:hover {text-decoration:underline;}
-</style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f1f5f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo i { color: #fbbf24; }
+
+    .tagline {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      color: var(--primary);
+      font-size: 2rem;
+    }
+
+    .intro {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 4rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .product-img {
+      height: 200px;
+      background: #e2e8f0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .product-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0.8rem 0;
+    }
+
+    .product-desc {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .select-product {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .select-product input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Botão Flutuante WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25d366;
+      color: white;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 8px 25px rgba(37, 197, 94, 0.4);
+      z-index: 1000;
+      transition: all 0.3s;
+      animation: pulse 2s infinite;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    .whatsapp-float .counter {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.8rem;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 197, 94, 0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: var(--dark);
+      color: white;
+      margin-top: 4rem;
+    }
+
+    .contact-info {
+      margin: 2rem 0;
+      font-size: 1.1rem;
+    }
+
+    .contact-info i {
+      color: #25d366;
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .logo { font-size: 2rem; }
+      h1 { font-size: 1.8rem; }
+      .products { grid-template-columns: 1fr; }
+      .whatsapp-float { width: 58px; height: 58px; font-size: 1.8rem; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="container header-content">
-    <div class="logo"><i class="fa-solid fa-house"></i> Construmax</div>
-    <nav>
-      <ul>
-        <li><a href="#produtos">Produtos</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <header>
+    <div class="logo">
+      <i class="fas fa-hard-hat"></i> ConstruFácil
+    </div>
+    <div class="tagline">Os melhores preços em materiais para sua obra</div>
+  </header>
 
-<section class="hero">
-  <h1>Construmax Materiais de Construção</h1>
-  <p>Qualidade, bom preço e entrega rápida para sua obra!</p>
-</section>
+  <div class="container">
+    <h1>Escolha os Produtos para Sua Obra</h1>
+    <p class="intro">
+      Marque os itens que você precisa e clique no WhatsApp para fazer seu pedido com atendimento imediato!
+    </p>
 
-<section id="produtos" class="container">
-  <h2 style="text-align:center;margin-top:2rem;">Nossos Produtos</h2>
-  <div class="products" id="productList">
-    <!-- Exemplo de produto -->
-    <div class="product" data-name="Cimento Votoran 50kg" data-price="38">
-      <img src="https://cdn.pixabay.com/photo/2016/03/31/21/15/cement-1298542_1280.jpg" alt="Cimento">
-      <h3>Cimento Votoran 50kg</h3>
-      <div class="price">R$ 38,00</div>
-      <div class="qty-box">
-        <label>Qtd:</label>
-        <input type="number" min="1" value="1">
+    <div class="products">
+
+      <div class="product-card">
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1581093458791-9d6c92f98c69?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-info">
+          <div class="product-title">Cimento Todas as Obras 50kg</div>
+          <div class="product-price">R$ 32,90</div>
+          <div class="product-desc">CP-II, alta resistência, entrega rápida</div>
+          <label class="select-product">
+            <input type="checkbox" class="product-check" data-name="Cimento 50kg" data-price="32,90">
+            <span>Selecionar este item</span>
+          </label>
+        </div>
       </div>
-    </div>
 
-    <div class="product" data-name="Tijolo Cerâmico 8 furos" data-price="1.20">
-      <img src="https://cdn.pixabay.com/photo/2017/05/06/23/57/bricks-2293265_1280.jpg" alt="Tijolo">
-      <h3>Tijolo Cerâmico 8 furos</h3>
-      <div class="price">R$ 1,20</div>
-      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
-    </div>
+      <div class="product-card">
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-info">
+          <div class="product-title">Tijolo 8 Furos (100 unid.)</div>
+          <div class="product-price">R$ 220,00</div>
+          <div class="product-desc">Tijolo cerâmico de primeira qualidade</div>
+          <label class="select-product">
+            <input type="checkbox" class="product-check" data-name="Tijolo 8 Furos (100 unid.)" data-price="220,00">
+            <span>Selecionar este item</span>
+          </label>
+        </div>
+      </div>
 
-    <div class="product" data-name="Areia Média Ensacada" data-price="12">
-      <img src="https://cdn.pixabay.com/photo/2016/03/09/09/22/sand-1246034_1280.jpg" alt="Areia">
-      <h3>Areia Média Ensacada</h3>
-      <div class="price">R$ 12,00</div>
-      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
-    </div>
+      <div class="product-card">
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1581093588353-7e3d3e2b3c88?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-info">
+          <div class="product-title">Areia Média (m³)</div>
+          <div class="product-price">R$ 85,00</div>
+          <div class="product-desc">Areia lavada, ideal para concreto e reboco</div>
+          <label class="select-product">
+            <input type="checkbox" class="product-check" data-name="Areia Média (m³)" data-price="85,00">
+            <span>Selecionar este item</span>
+          </label>
+        </div>
+      </div>
 
-    <div class="product" data-name="Brita nº1 Ensacada" data-price="15">
-      <img src="https://cdn.pixabay.com/photo/2016/07/23/15/15/gravel-1539444_1280.jpg" alt="Brita">
-      <h3>Brita nº1 Ensacada</h3>
-      <div class="price">R$ 15,00</div>
-      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
-    </div>
+      <div class="product-card">
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1581093458791-9d6c92f98c69?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-info">
+          <div class="product-title">Brita #1 (m³)</div>
+          <div class="product-price">R$ 95,00</div>
+          <div class="product-desc">Brita graduada para concreto estrutural</div>
+          <label class="select-product">
+            <input type="checkbox" class="product-check" data-name="Brita #1 (m³)" data-price="95,00">
+            <span>Selecionar este item</span>
+          </label>
+        </div>
+      </div>
 
-    <div class="product" data-name="Tinta Coral 18L - Branca" data-price="189">
-      <img src="https://cdn.pixabay.com/photo/2016/11/29/06/22/paint-1867896_1280.jpg" alt="Tinta">
-      <h3>Tinta Coral 18L - Branca</h3>
-      <div class="price">R$ 189,00</div>
-      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
-    </div>
+      <div class="product-card">
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1589939700388-0bb5b2a9e788?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-info">
+          <div class="product-title">Telha Cerâmica Portuguesa</div>
+          <div class="product-price">R$ 1,89 unid.</div>
+          <div class="product-desc">Telha de alta qualidade, resistente</div>
+          <label class="select-product">
+            <input type="checkbox" class="product-check" data-name="Telha Portuguesa" data-price="1,89 unid.">
+            <span>Selecionar este item</span>
+          </label>
+        </div>
+      </div>
 
-    <div class="product" data-name="Caixa D'água 500L Fortlev" data-price="285">
-      <img src="https://cdn.pixabay.com/photo/2016/07/16/16/14/water-tank-1521457_1280.jpg" alt="Caixa d'água">
-      <h3>Caixa D'água 500L Fortlev</h3>
-      <div class="price">R$ 285,00</div>
-      <div class="qty-box"><label>Qtd:</label><input type="number" min="1" value="1"></div>
+      <div class="product-card">
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b0c144b96e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-info">
+          <div class="product-title">Vergalhão CA-50 10mm (12m)</div>
+          <div class="product-price">R$ 68,00</div>
+          <div class="product-desc">Aço de alta resistência</div>
+          <label class="select-product">
+            <input type="checkbox" class="product-check" data-name="Vergalhão 10mm" data-price="68,00">
+            <span>Selecionar este item</span>
+          </label>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div style="text-align:center;">
-    <a href="#" class="btn" id="enviarPedido"><i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp</a>
-  </div>
-</section>
+  <!-- Botão WhatsApp Flutuante -->
+  <a href="#" id="whatsappBtn" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+    <span class="counter" id="counter">0</span>
+  </a>
 
-<footer id="contato">
-  <p>&copy; 2025 Construmax Materiais de Construção<br>
-  Atendimento pelo WhatsApp: <a href="https://wa.me/55XXXXXXXXXXX" target="_blank">(XX) XXXXX-XXXX</a></p>
-</footer>
+  <footer>
+    <div class="container">
+      <h3>ConstruFácil Materiais</h3>
+      <div class="contact-info">
+        <p><i class="fab fa-whatsapp"></i> (11) 99999-9999 - Fale com o vendedor</p>
+        <p><i class="fas fa-map-marker-alt"></i> Rua das Obras, 123 - São Paulo, SP</p>
+      </div>
+      <p>&copy; 2025 ConstruFácil - Todos os direitos reservados</p>
+    </div>
+  </footer>
 
-<script>
-// Número do WhatsApp (com DDI 55)
-const whatsappNumber = "55XXXXXXXXXXX"; // 👈 altere aqui
+  <script>
+    const phoneNumber = "5511999999999"; // ← COLOQUE SEU NÚMERO AQUI
+    const checkboxes = document.querySelectorAll('.product-check');
+    const counter = document.getElementById('counter');
+    const whatsappBtn = document.getElementById('whatsappBtn');
 
-document.getElementById("enviarPedido").addEventListener("click", function(e){
-  e.preventDefault();
-
-  const produtos = document.querySelectorAll(".product");
-  let mensagem = "*Pedido de Materiais de Construção*%0A%0A";
-  let total = 0;
-  let algumSelecionado = false;
-
-  produtos.forEach(prod=>{
-    const nome = prod.dataset.name;
-    const preco = parseFloat(prod.dataset.price);
-    const qtd = parseInt(prod.querySelector("input").value);
-    if(qtd > 0){
-      algumSelecionado = true;
-      const subtotal = preco * qtd;
-      total += subtotal;
-      mensagem += `• ${nome} - Qtd: ${qtd} - R$ ${subtotal.toFixed(2).replace('.',',')}%0A`;
+    function updateCounter() {
+      const selected = document.querySelectorAll('.product-check:checked').length;
+      counter.textContent = selected;
+      counter.style.display = selected > 0 ? 'flex' : 'none';
     }
-  });
 
-  if(!algumSelecionado){
-    alert("Selecione ao menos um produto antes de enviar o pedido.");
-    return;
-  }
+    function sendToWhatsApp() {
+      const selectedProducts = [];
+      document.querySelectorAll('.product-check:checked').forEach(item => {
+        const name = item.getAttribute('data-name');
+        const price = item.getAttribute('data-price');
+        selectedProducts.push(`• ${name} - R$ ${price}`);
+      });
 
-  mensagem += `%0ATotal: *R$ ${total.toFixed(2).replace('.',',')}*%0A%0A`;
-  mensagem += "Olá! Gostaria de confirmar esse pedido.";
+      if (selectedProducts.length === 0) {
+        alert("Selecione pelo menos um produto!");
+        return;
+      }
 
-  const link = `https://wa.me/${whatsappNumber}?text=${mensagem}`;
-  window.open(link, "_blank");
-});
-</script>
+      const message = encodeURIComponent(
+        "Olá! Gostaria de fazer um pedido:\n\n" +
+        selectedProducts.join("\n") +
+        "\n\nPode me passar o total com entrega?\nObrigado!"
+      );
 
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    }
+
+    // Eventos
+    checkboxes.forEach(box => {
+      box.addEventListener('change', updateCounter);
+    });
+
+    whatsappBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      sendToWhatsApp();
+    });
+
+    // Inicializa
+    updateCounter();
+  </script>
 </body>
 </html>
