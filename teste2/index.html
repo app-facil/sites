@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max TV - Sistema de Vendas IPTV</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+    (function(){
+        emailjs.init("SEU_PUBLIC_KEY_AQUI"); // 🔧 substitua pelo seu public key
+    })();
+</script>
+<style>
+    :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --accent: #f59e0b;
+        --dark: #0f172a;
+        --light: #f8fafc;
+        --gray: #94a3b8;
+        --success: #22c55e;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+    body {
+        background: linear-gradient(135deg,#0f172a,#1e293b);
+        color: var(--light);
+        overflow-x:hidden;
+    }
+    header {
+        position:fixed; top:0; width:100%; background:rgba(15,23,42,0.8);
+        backdrop-filter:blur(8px); z-index:100; box-shadow:0 4px 20px rgba(0,0,0,0.4);
+    }
+    .container { max-width:1200px; margin:auto; padding:0 1.5rem; }
+    .header-content { display:flex; justify-content:space-between; align-items:center; padding:1rem 0; }
+    .logo { display:flex; align-items:center; gap:0.6rem; font-size:1.8rem; color:white; font-weight:700; }
+    .logo i { color:var(--accent); }
+    nav ul { display:flex; gap:2rem; list-style:none; }
+    nav a { color:white; text-decoration:none; font-weight:500; position:relative; }
+    nav a::after {
+        content:''; position:absolute; bottom:-5px; left:0; width:0; height:2px;
+        background:var(--accent); transition:width 0.3s;
+    }
+    nav a:hover::after { width:100%; }
+    .hero {
+        padding:8rem 0 6rem; text-align:center;
+        background: radial-gradient(circle at top left,rgba(37,99,235,0.2),transparent 50%),
+                    radial-gradient(circle at bottom right,rgba(245,158,11,0.2),transparent 50%);
+    }
+    .hero h1 {
+        font-size:3.2rem; 
+        background:linear-gradient(to right,var(--primary),var(--accent));
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        margin-bottom:1rem; animation:fadeIn 1s ease-out;
+    }
+    .hero p { color:var(--gray); font-size:1.2rem; max-width:650px; margin:auto; }
+    .btn {
+        display:inline-block; margin-top:2rem; padding:0.9rem 2rem;
+        background:linear-gradient(to right,var(--primary),var(--primary-dark));
+        color:white; border-radius:40px; text-decoration:none; font-weight:600;
+        transition:transform 0.3s, box-shadow 0.3s;
+    }
+    .btn:hover { transform:scale(1.05); box-shadow:0 5px 20px rgba(37,99,235,0.5); }
+    .btn-accent {
+        background:linear-gradient(to right,var(--accent),#e67e22);
+        box-shadow:0 4px 15px rgba(245,158,11,0.4);
+    }
+
+    /* Planos */
+    .section-title {
+        text-align:center; margin:3rem 0 2rem; font-size:2.3rem; position:relative;
+    }
+    .section-title::after {
+        content:''; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%);
+        width:60px; height:4px; background:var(--accent); border-radius:2px;
+    }
+    .plans { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
+    .plan {
+        background:rgba(30,41,59,0.8); padding:2rem; border-radius:15px; text-align:center;
+        max-width:340px; transition:transform 0.3s, box-shadow 0.3s;
+        border:1px solid rgba(255,255,255,0.1);
+    }
+    .plan:hover { transform:translateY(-10px); box-shadow:0 10px 30px rgba(0,0,0,0.3); }
+    .plan h3 { color:var(--accent); margin-bottom:1rem; }
+    .price { font-size:2.2rem; font-weight:700; color:white; }
+    .price span { font-size:1rem; color:var(--gray); }
+    .features { list-style:none; margin:1.5rem 0; }
+    .features li { padding:0.6rem 0; border-bottom:1px solid rgba(255,255,255,0.1); }
+    .features i { color:var(--secondary); margin-right:0.5rem; }
+
+    /* PIX */
+    .payment {
+        background:rgba(30,41,59,0.8); padding:3rem; border-radius:15px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.3); margin-top:4rem;
+    }
+    .pix-code {
+        background:white; color:black; padding:1rem; border-radius:8px;
+        font-family:monospace; display:inline-block; position:relative;
+    }
+    .copy-btn {
+        position:absolute; right:8px; top:50%; transform:translateY(-50%);
+        background:var(--primary); border:none; color:white; border-radius:5px;
+        padding:0.3rem 0.5rem; cursor:pointer;
+    }
+    .copy-btn:hover { background:var(--primary-dark); }
+    .payment-form { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2rem; }
+    .form-group-full { grid-column:1/-1; }
+    input,select,textarea {
+        width:100%; padding:0.8rem; border-radius:8px; border:1px solid rgba(255,255,255,0.2);
+        background:rgba(15,23,42,0.8); color:white;
+    }
+    input:focus,select:focus,textarea:focus { border-color:var(--primary); outline:none; }
+
+    /* Suporte */
+    .support-form {
+        background:rgba(15,23,42,0.8); padding:2rem; border-radius:12px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    }
+    .support-form h3 { color:var(--accent); margin-bottom:1rem; text-align:center; }
+    .support-form button { width:100%; }
+
+    footer {
+        background:rgba(15,23,42,0.95);
+        padding:3rem 1rem; margin-top:4rem; color:var(--gray);
+    }
+    .footer-content {
+        display:flex; flex-wrap:wrap; justify-content:space-between; gap:2rem;
+    }
+    .footer-links h4 { color:white; margin-bottom:1rem; }
+    .footer-links a { color:var(--gray); text-decoration:none; }
+    .footer-links a:hover { color:var(--accent); }
+
+    @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+
+    @media (max-width:768px){
+        nav ul{flex-direction:column; gap:1rem;}
+        .payment-form{grid-template-columns:1fr;}
+    }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-content">
+    <div class="logo"><i class="fas fa-tv"></i><span>Max TV</span></div>
+    <nav>
+      <ul>
+        <li><a href="#plans">Planos</a></li>
+        <li><a href="#payment">Pagamento</a></li>
+        <li><a href="#support">Suporte</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Experiência Premium em Streaming</h1>
+    <p>Assista a mais de 15.000 canais, filmes e séries com qualidade Full HD/4K</p>
+    <a href="#plans" class="btn">Ver Planos <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<section id="plans" class="container">
+  <h2 class="section-title">Nossos Planos</h2>
+  <div class="plans">
+    <div class="plan">
+      <h3>Mensal</h3><div class="price">R$25<span>/mês</span></div>
+      <ul class="features"><li><i class="fa fa-check"></i> 15.000 Canais</li><li><i class="fa fa-check"></i> Suporte 24h</li></ul>
+      <a href="#payment" class="btn">Assinar Agora</a>
+    </div>
+    <div class="plan">
+      <h3>Trimestral</h3><div class="price">R$60<span>/3 meses</span></div>
+      <ul class="features"><li><i class="fa fa-check"></i> Full HD / 4K</li><li><i class="fa fa-check"></i> Suporte Premium</li></ul>
+      <a href="#payment" class="btn btn-accent">Assinar Agora</a>
+    </div>
+    <div class="plan">
+      <h3>Anual</h3><div class="price">R$200<span>/ano</span></div>
+      <ul class="features"><li><i class="fa fa-check"></i> Canais + Filmes</li><li><i class="fa fa-check"></i> Suporte VIP</li></ul>
+      <a href="#payment" class="btn">Assinar Agora</a>
+    </div>
+  </div>
+</section>
+
+<section id="payment" class="container">
+  <div class="payment">
+    <h2 class="section-title">Pagamento via PIX</h2>
+    <p style="text-align:center;">Use a chave PIX abaixo:</p>
+    <div class="pix-code">
+      IPTVPR123456789@PIX.COM.BR
+      <button class="copy-btn" onclick="copyPixKey()"><i class="fa fa-copy"></i></button>
+    </div>
+    <p style="text-align:center;">Após o pagamento, preencha o formulário abaixo:</p>
+
+    <form id="paymentForm" class="payment-form">
+      <div class="form-group"><input type="text" id="name" placeholder="Seu nome" required></div>
+      <div class="form-group"><input type="email" id="email" placeholder="Seu e-mail" required></div>
+      <div class="form-group"><select id="plan" required>
+          <option value="">Escolha o plano</option>
+          <option>Mensal</option><option>Trimestral</option><option>Anual</option>
+      </select></div>
+      <div class="form-group"><input type="tel" id="phone" placeholder="WhatsApp" required></div>
+      <div class="form-group form-group-full">
+        <input type="file" id="proof" accept="image/*,.pdf" required>
+      </div>
+      <div class="form-group form-group-full">
+        <button type="submit" class="btn btn-accent">Enviar Comprovante</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer id="support">
+  <div class="container footer-content">
+    <div class="footer-logo">
+      <div class="logo"><i class="fa fa-tv"></i> Max TV</div>
+      <p>Streaming premium com qualidade e estabilidade garantida.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Links</h4>
+      <ul><li><a href="#plans">Planos</a></li><li><a href="#payment">Pagamento</a></li></ul>
+    </div>
+
+    <div class="support-form">
+      <h3>Contato de Suporte</h3>
+      <form id="supportForm">
+        <div class="form-group"><input type="text" id="supportName" placeholder="Seu nome" required></div>
+        <div class="form-group"><input type="email" id="supportEmail" placeholder="Seu e-mail" required></div>
+        <div class="form-group form-group-full"><textarea id="supportMsg" rows="4" placeholder="Sua mensagem" required></textarea></div>
+        <button type="submit" class="btn btn-accent">Enviar Mensagem</button>
+      </form>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:2rem; color:var(--gray);">&copy; 2025 Max TV - Todos os direitos reservados</p>
+</footer>
+
+<script>
+function copyPixKey(){
+  navigator.clipboard.writeText("IPTVPR123456789@PIX.COM.BR");
+  alert("Chave PIX copiada!");
+}
+
+// Envio do formulário de pagamento (simulação)
+document.getElementById("paymentForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  alert("Dados enviados com sucesso! Em até 24h seu acesso será liberado.");
+  e.target.reset();
+});
+
+// Formulário de suporte via EmailJS
+document.getElementById("supportForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  emailjs.send("SEU_SERVICE_ID","SEU_TEMPLATE_ID",{
+      from_name: document.getElementById("supportName").value,
+      from_email: document.getElementById("supportEmail").value,
+      message: document.getElementById("supportMsg").value
+  }).then(()=>{
+      alert("Mensagem enviada com sucesso! Em breve responderemos.");
+      e.target.reset();
+  }, (error)=>{
+      alert("Erro ao enviar mensagem. Verifique sua conexão.");
+      console.error(error);
+  });
+});
+</script>
+</body>
+</html>
