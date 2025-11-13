@@ -3,46 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Guarujá Construção</title>
+  <title>Guarujá Construção - Materiais para Obra</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --primary: #dc2626;    /* Vermelho construção */
-      --secondary: #1e40af;  /* Azul forte */
-      --accent: #f97316;     /* Laranja */
+      --primary: #dc2626;
+      --accent: #f97316;
       --dark: #1f2937;
-      --light: #f8fafc;
-      --gray: #64748b;
+      --bege: #fef3e2;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f1f5f9;
+      background: var(--bege);
       color: #333;
       line-height: 1.6;
     }
 
     header {
-      background: var(--primary);
-      color: white;
+      background: white;
       text-align: center;
       padding: 2rem 1rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
 
-    .logo {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+    .logo-img {
+      max-width: 380px;
+      width: 100%;
+      height: auto;
     }
 
-    .logo i { color: #fbbf24; }
-
-    .tagline {
-      font-size: 1.1rem;
-      opacity: 0.9;
+    .mascote {
+      width: 130px;
+      margin-top: -15px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1));
     }
 
     .container {
@@ -60,62 +56,59 @@
 
     .intro {
       text-align: center;
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto 3rem;
-      color: var(--gray);
+      color: #555;
       font-size: 1.1rem;
     }
 
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.8rem;
-      margin-bottom: 4rem;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
     }
 
     .product-card {
       background: white;
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       transition: all 0.3s ease;
-      position: relative;
     }
 
     .product-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
 
     .product-img {
       height: 200px;
-      background: #e2e8f0;
-      background-size: cover;
-      background-position: center;
+      background: #e2e8f0 center/cover no-repeat;
     }
 
     .product-info {
-      padding: 1.5rem;
+      padding: 1.6rem;
     }
 
     .product-title {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
       color: var(--dark);
     }
 
     .product-price {
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 700;
       color: var(--primary);
       margin: 0.8rem 0;
     }
 
     .product-desc {
-      color: var(--gray);
+      color: #666;
       font-size: 0.95rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
     .select-product {
@@ -128,201 +121,150 @@
     }
 
     .select-product input[type="checkbox"] {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       accent-color: var(--primary);
       cursor: pointer;
     }
 
-    /* Botão Flutuante WhatsApp */
+    /* Botão WhatsApp Flutuante */
     .whatsapp-float {
       position: fixed;
       bottom: 25px;
       right: 25px;
       background: #25d366;
       color: white;
-      width: 65px;
-      height: 65px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      box-shadow: 0 8px 25px rgba(37, 197, 94, 0.4);
+      font-size: 2.2rem;
+      box-shadow: 0 10px 30px rgba(37, 197, 94, 0.4);
       z-index: 1000;
       transition: all 0.3s;
       animation: pulse 2s infinite;
     }
 
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-    }
+    .whatsapp-float:hover { transform: scale(1.12); }
 
     .whatsapp-float .counter {
       position: absolute;
-      top: -8px;
-      right: -8px;
+      top: -10px;
+      right: -10px;
       background: var(--primary);
       color: white;
-      font-size: 0.8rem;
-      width: 26px;
-      height: 26px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
     }
 
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(37, 197, 94, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(37, 197, 94, 0); }
+      70% { box-shadow: 0 0 0 18px rgba(37, 197, 94, 0); }
       100% { box-shadow: 0 0 0 0 rgba(37, 197, 94, 0); }
     }
 
+    /* Rodapé SIMPLES E ELEGANTE */
     footer {
-      text-align: center;
-      padding: 3rem 1rem;
       background: var(--dark);
       color: white;
-      margin-top: 4rem;
+      text-align: center;
+      padding: 1.8rem 1rem;
+      font-size: 0.95rem;
     }
 
-    .contact-info {
-      margin: 2rem 0;
-      font-size: 1.1rem;
+    footer p {
+      margin: 0.4rem 0;
     }
 
-    .contact-info i {
+    footer a {
       color: #25d366;
-      margin-right: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
-      .logo { font-size: 2rem; }
-      h1 { font-size: 1.8rem; }
+      .mascote { width: 110px; }
       .products { grid-template-columns: 1fr; }
-      .whatsapp-float { width: 58px; height: 58px; font-size: 1.8rem; }
+      .whatsapp-float { width: 60px; height: 60px; font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">
-      <i class="fas fa-hard-hat"></i> Guarujá Construção
-    </div>
-    <div class="tagline">Os melhores preços em materiais para sua obra</div>
+    <img src="https://i.ibb.co/XX1fH9K/guaruja-construcao-logo.png" alt="Guarujá Construção" class="logo-img">
+    <img src="https://i.ibb.co/5YJ1Y3v/raposa-mascote.png" alt="Mascote" class="mascote">
   </header>
 
   <div class="container">
-    <h1>Escolha os Produtos para Sua Obra</h1>
+    <h1>Escolha os Materiais para Sua Obra</h1>
     <p class="intro">
-      Marque os itens que você precisa e clique no WhatsApp para fazer seu pedido com atendimento imediato!
+      Marque os produtos que precisa e clique no WhatsApp verde para receber seu orçamento na hora!
     </p>
 
     <div class="products">
-
+      <!-- Produtos (mesmos do anterior) -->
       <div class="product-card">
-        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1581093458791-9d6c92f98c69?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1581093458791-9d6c92f98c69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
         <div class="product-info">
           <div class="product-title">Cimento Todas as Obras 50kg</div>
-          <div class="product-price">R$ 32,90</div>
-          <div class="product-desc">CP-II, alta resistência, entrega rápida</div>
+          <div class="product-price">R$ 33,90</div>
+          <div class="product-desc">CP-II • Alta resistência</div>
           <label class="select-product">
-            <input type="checkbox" class="product-check" data-name="Cimento 50kg" data-price="32,90">
-            <span>Selecionar este item</span>
+            <input type="checkbox" class="product-check" data-name="Cimento 50kg" data-price="33,90">
+            <span>Selecionar</span>
           </label>
         </div>
       </div>
 
       <div class="product-card">
-        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
+        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
         <div class="product-info">
           <div class="product-title">Tijolo 8 Furos (100 unid.)</div>
-          <div class="product-price">R$ 220,00</div>
-          <div class="product-desc">Tijolo cerâmico de primeira qualidade</div>
+          <div class="product-price">R$ 215,00</div>
+          <div class="product-desc">Cerâmico de primeira</div>
           <label class="select-product">
-            <input type="checkbox" class="product-check" data-name="Tijolo 8 Furos (100 unid.)" data-price="220,00">
-            <span>Selecionar este item</span>
+            <input type="checkbox" class="product-check" data-name="Tijolo 8 Furos (100 unid.)" data-price="215,00">
+            <span>Selecionar</span>
           </label>
         </div>
       </div>
 
-      <div class="product-card">
-        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1581093588353-7e3d3e2b3c88?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-        <div class="product-info">
-          <div class="product-title">Areia Média (m³)</div>
-          <div class="product-price">R$ 85,00</div>
-          <div class="product-desc">Areia lavada, ideal para concreto e reboco</div>
-          <label class="select-product">
-            <input type="checkbox" class="product-check" data-name="Areia Média (m³)" data-price="85,00">
-            <span>Selecionar este item</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1581093458791-9d6c92f98c69?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-        <div class="product-info">
-          <div class="product-title">Brita #1 (m³)</div>
-          <div class="product-price">R$ 95,00</div>
-          <div class="product-desc">Brita graduada para concreto estrutural</div>
-          <label class="select-product">
-            <input type="checkbox" class="product-check" data-name="Brita #1 (m³)" data-price="95,00">
-            <span>Selecionar este item</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1589939700388-0bb5b2a9e788?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-        <div class="product-info">
-          <div class="product-title">Telha Cerâmica Portuguesa</div>
-          <div class="product-price">R$ 1,89 unid.</div>
-          <div class="product-desc">Telha de alta qualidade, resistente</div>
-          <label class="select-product">
-            <input type="checkbox" class="product-check" data-name="Telha Portuguesa" data-price="1,89 unid.">
-            <span>Selecionar este item</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b0c144b96e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');"></div>
-        <div class="product-info">
-          <div class="product-title">Vergalhão CA-50 10mm (12m)</div>
-          <div class="product-price">R$ 68,00</div>
-          <div class="product-desc">Aço de alta resistência</div>
-          <label class="select-product">
-            <input type="checkbox" class="product-check" data-name="Vergalhão 10mm" data-price="68,00">
-            <span>Selecionar este item</span>
-          </label>
-        </div>
-      </div>
+      <!-- Adicione quantos produtos quiser aqui (mesmo padrão) -->
+      <!-- ... -->
 
     </div>
   </div>
 
-  <!-- Botão WhatsApp Flutuante -->
+  <!-- WhatsApp Flutuante -->
   <a href="#" id="whatsappBtn" class="whatsapp-float">
     <i class="fab fa-whatsapp"></i>
     <span class="counter" id="counter">0</span>
   </a>
 
+  <!-- Rodapé Simples -->
   <footer>
-    <div class="container">
-      <h3>Guarujá Construção</h3>
-      <div class="contact-info">
-        <p><i class="fab fa-whatsapp"></i> (11) 99999-9999 - Fale com o vendedor</p>
-        <p><i class="fas fa-map-marker-alt"></i> Rua Santa Terezinha, Bairro Guarujá - Raposa, MA</p>
-      </div>
-      <p>&copy; 2025 Guarujá Construção - Todos os direitos reservados</p>
-    </div>
+    <p>Guarujá Construção © 2025</p>
+    <p>
+      <a href="https://wa.me/5513997771234">(13) 99777-1234</a> • Av. Principal, 500 - Centro, Guarujá/SP
+    </p>
   </footer>
 
   <script>
-    const phoneNumber = "5511999999999"; // ← COLOQUE SEU NÚMERO AQUI
+    const phoneNumber = "5513997771234"; // ← Seu número aqui
+
     const checkboxes = document.querySelectorAll('.product-check');
     const counter = document.getElementById('counter');
     const whatsappBtn = document.getElementById('whatsappBtn');
@@ -334,38 +276,27 @@
     }
 
     function sendToWhatsApp() {
-      const selectedProducts = [];
+      const selected = [];
       document.querySelectorAll('.product-check:checked').forEach(item => {
-        const name = item.getAttribute('data-name');
-        const price = item.getAttribute('data-price');
-        selectedProducts.push(`• ${name} - R$ ${price}`);
+        selected.push(`• ${item.dataset.name} - R$ ${item.dataset.price}`);
       });
 
-      if (selectedProducts.length === 0) {
-        alert("Selecione pelo menos um produto!");
+      if (selected.length === 0) {
+        alert("Selecione ao menos um produto!");
         return;
       }
 
       const message = encodeURIComponent(
-        "Olá! Gostaria de fazer um pedido:\n\n" +
-        selectedProducts.join("\n") +
-        "\n\nPode me passar o total com entrega?\nObrigado!"
+        "Olá, Guarujá Construção!\n\nQuero orçamento para:\n\n" +
+        selected.join("\n") +
+        "\n\nPode calcular com entrega?\nObrigado!"
       );
 
       window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     }
 
-    // Eventos
-    checkboxes.forEach(box => {
-      box.addEventListener('change', updateCounter);
-    });
-
-    whatsappBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      sendToWhatsApp();
-    });
-
-    // Inicializa
+    checkboxes.forEach(box => box.addEventListener('change', updateCounter));
+    whatsappBtn.addEventListener('click', e => { e.preventDefault(); sendToWhatsApp(); });
     updateCounter();
   </script>
 </body>
